@@ -1,0 +1,32 @@
+<header id="header" class="fixed-top">
+    <div class="container-fluid d-flex">
+
+        <div class="logo mr-auto">
+            <h1 class="text-light"><a><span>Gestión Servicios Municipales</span></a></h1>
+            <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+        </div>
+
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a routerLink="/" routerLinkActive="active">Inicio</a></li>
+
+                <li *ngIf="isAdmin === 'admin'" class="drop-down"><a href="">Menu Admin</a>
+                    <ul>
+                        <li><a routerLink="/admin/users">Users</a></li>
+                        <li><a routerLink="/login" (click)="onLogout()">Logout</a></li>
+                    </ul>
+                </li>
+                <div *ngIf="(authSvc.user$ | async) as user; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <li class="get-started"><a routerLink="/login" (click)="onLogout()">Cerrar Sesión</a></li>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <li class="get-started"><a routerLink="/login">Inicia Sesión</a></li>
+                </ng-template>
+            </ul>
+        </nav>
+        <!-- .nav-menu -->
+
+    </div>
+
+</header>

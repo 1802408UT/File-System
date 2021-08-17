@@ -1,0 +1,15 @@
+<table id="contactJs" class="table-contact">
+    <tr class="thead">
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Phone</th>
+        <th>Address</th>
+    </tr>
+
+    <tr class="tbody" *ngFor="let contact of exportContacts; let odd = odd" [ngClass]="{'odd': odd}">
+        <td>{{contact?.name}}</td>
+        <td>{{contact?.email}}</td>
+        <td>{{contact?.phone}}</td>
+        <td>{{contact?.address}}</td>
+    </tr>
+</table>

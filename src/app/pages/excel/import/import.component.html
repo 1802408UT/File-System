@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="tools">
+        <button>
+        <label>
+          <span class="mdi mdi-file-export"> </span>
+          <small>Import</small>
+          <input hidden type="file" (change)="onFileChange($event)" multiple="false">
+        </label>
+      </button>
+        <button (click)="Save()">
+        <label>
+          <span class="mdi mdi-file-export"> </span>
+          <small>Save</small>
+          </label>
+      </button>
+    </div>
+
+    <table id="contactJs" class="table-contact">
+        <tr class="thead">
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Movimiento</th>
+            <th>Comprador</th>
+        </tr>
+        <tr class="tbody" *ngFor="let contact of importContacts; let odd = odd" [ngClass]="{'odd': odd}">
+            <td>{{contact?.product}}</td>
+            <td>{{contact?.price}}</td>
+            <td>{{contact?.movimiento}}</td>
+            <td>{{contact?.vendedor}}</td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="w3-padding-64">
+
+    <div class="table-button-row w3-container  ">
+        <button (click)="onOpenModal()" mat-flat-button class="btn-new primary">
+        Add new
+      </button>
+    </div>
+
+    <div class="w3-container w3-padding-top-24 w3-centered">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matTableExporter [dataSource]="dataSource" #exporter="matTableExporter" [hiddenColumns]="[0]">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.product }}</td>
+            </ng-container>
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+                <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+            </ng-container>
+            <!-- Description Column -->
+            <ng-container matColumnDef="movimiento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                <td mat-cell *matCellDef="let element">{{ element.movimiento }}</td>
+            </ng-container>
+            <!-- Image Column -->
+            <ng-container matColumnDef="vendedor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Imagen</th>
+                <td mat-cell *matCellDef="let element">{{ element.vendedor }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="table-button-row">
+                        <!--*ngIf="isAdmin === 'admin'"-->
+                        <div *ngIf="isAdmin === 'admin'; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <button mat-flat-button color="accent" (click)="onOpenModal(element)">
+                        Edit
+                      </button>
+                            <button mat-flat-button color="warn" (click)="onDelete(element.id)">
+                        Delete
+                      </button>
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <button mat-flat-button disabled color="accent" (click)="onOpenModal(element)">
+                        Edit
+                      </button>
+                            <button mat-flat-button disabled color="warn" (click)="onDelete(element.id)">
+                        Delete
+                      </button>
+                        </ng-template>
+
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </div>
+    <button mat-raised-button (click)="exporter.exportTable('xlsx', {fileName:'test', sheet: 'sheet_name', Props: {Author: 'Talha'}})">Excel</button>
+    <button mat-raised-button (click)="exporter.exportTable('csv')">Csv</button>
+    <button mat-raised-button (click)="exporter.exportTable('json')">Json</button>
+    <button mat-raised-button (click)="exporter.exportTable('txt')">Txt</button>
+</div>

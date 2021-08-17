@@ -1,0 +1,81 @@
+<ng-container *ngIf="(authSvc.user$ | async) as user">
+    <div class="w3-padding-top-64">
+        <h1 class="w3-container">Bienvenido, {{ user?.username || 'User' }}.</h1>
+    </div>
+    <div class="w3-container w3-padding-64">
+        <h1>Sube tus Archivo</h1>
+        <div id="wrap">
+            <mat-card id="box1">
+                <div mode="buffer" *ngFor="let progress of progressInfo">
+                    <span>{{progress.fileName}}</span>
+                    <span>{{progress.value}}%</span>
+                    <div id="progressbar">
+                        <mat-progress-bar mode="buffer" value={{progress.value}}>
+                        </mat-progress-bar>
+                    </div>
+                </div>
+            </mat-card>
+            <div id="box2">
+                <button id="selectButton" mat-raised-button (click)="fileInput.click()">Select File to Upload</button>
+                <input #fileInput type="file" name="avatar" hidden multiple (change)="selectFiles($event)" />
+                <span *ngIf="fileName">{{fileName}}</span>
+                <button id="uploadButton" mat-raised-button *ngIf="selectedFiles" [disabled]="!selectedFiles" (click)="uploadFiles()">
+                    Subir Archivos
+                </button>
+            </div>
+            <div id="box3">
+                <span>{{message}}</span>
+            </div>
+
+            <div id="box4">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Lista de Archivos</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <ul>
+
+                            <li *ngFor="let file of fileInfos | async; index as fileId">
+                                <a>{{file.$loki}}</a>
+                                <a>{{file.originalname}}</a>
+                                <a>{{file.filename}}</a>
+                                <a mat-button href="http://localhost:3000/upload/load/{{file.$loki}}" target="_blank">
+                                    <mat-icon (click)="getById(file.$loki)">get_app</mat-icon>
+                                </a>
+                                <div *ngIf="isUser === 'admin'; then thenBlock else elseBlock"></div>
+                                <ng-template #thenBlock>
+                                    <button mat-button>
+                                        <mat-icon (click)="deleteFile(file.$loki)">delete</mat-icon>
+                                    </button>
+                                </ng-template>
+                                <ng-template #elseBlock>
+                                    <button mat-button disabled>
+                                        <mat-icon (click)="deleteFile(file.$loki)">delete</mat-icon>
+                                    </button>
+                                </ng-template>
+                            </li>
+                        </ul>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+
+</ng-container>
+
+<ng-container *ngIf="!isUser">
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1">
+                    <h1>Sistema de Gestion de Usuarios y de archivos<br> Gestión Servicios Municipales</h1>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                    <img src="assets/img/Logo.png" class="img-fluid animated" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+</ng-container>

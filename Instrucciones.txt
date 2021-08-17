@@ -1,0 +1,41 @@
+/////////////////////////////////////////////////////////
+
+Al descargar el proyecto debes descargar todos los modulos necesario
+tanto como en la carpeta raiz y dentro de la carpeta API
+////comando: npm i
+lo puedes hacer directo en la terminal de Visual Studio recuerda que en dentro
+de la carpeta SistemR y la de API
+////comando: npm i
+
+Dentro de la Carpeta API hay un archivo llamadi ormconfig,json
+este archivo es el encargado de darle la base de datos a la que se conectara
+////Nombre de la base de datos :sistemarv2
+Nota es necesario tener una base de datos con ese nombre
+abres mysql y ejecutas este comando o lo haces por la interfaz
+////Create database sistemarv2;
+//// Nota:Por sino te deja importar la base de datos que esta en la carpeta DB
+// Usuarios de la base de datos || Las contraseñas estan encriptadas asi
+//                              || que en la base de datos no deben de salir.
+// admin@gmail.com
+// 1234567
+// user@gmail.com
+// 1234567
+///////////////////////////////////////////////////////////////////////////////////
+		Si tuviste problemas con la base de datos solo 
+		conque la crees con el nombre sistemarv2 no debe de marcar
+		               		error
+//////////////////////////////////////////////////////////////////////////////////
+Para iniciar el proyecto en la terminal utiliza cd para dirigirte ala carpeta API
+y escribe /// npm run dev
+Se levantara el servicio de la API asi que la final nos debe decir que el servicio
+esta en el puerto 3000 si marca error //// revisa que si tienes la bd
+// De ahi dejamos esa terminal y abrimos otra. Nota no cierres la terminal donde
+// levantaste la api
+aqui escribes ng serve -o
+// Se empezara a construir la app aqui se toma su tiempo
+// Cuando se termine de construir te generar una ventana con el proyecto ejecuntadose
+// en el navegador http:localhost:4200
+
+// Si pudiste importar la base de datos trata de logearte con los usuarios
+// que estan arriba sino deja contactame
+
